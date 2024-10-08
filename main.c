@@ -6,6 +6,8 @@
 void getBirthday(int *d, int *m, int *y);
 // Check if the year is a leap year
 bool isLeapYear(int *y);
+// Check how many days are in the given month
+int monthLength(int *m, bool *isLeap);
 // Prototype for find birth weekday function
 int weekday();
 
@@ -22,9 +24,7 @@ int main()
 
     // time for the input
     getBirthday(&day, &month, &year);
-    if (!isLeapYear(&year)) {
-        printf("Not Leap Year");
-        }
+
     return 0;
 }
 
@@ -38,29 +38,79 @@ int weekday() {
 bool isLeapYear(int *y) {
     if (*y % 4 != 0) {
     return false;
-        }
-    return true;
     }
+    return true;
+}
 
 void getBirthday(int *d, int *m, int *y)  {
-    printf("Input your birth day (0-31): ");
+    // Get birth year first, since a leap year will change the possible birth dates in February
+    printf("Input your birth year: ");
     while (1) {
-        if (scanf("%d", d) != 1) {
-        printf("Invalid input, try again: ");
-        while(getchar() != '\n');
-        continue;
-            }
-        // check if input is an integer and if the input is in the appropriate range
-        // https://islandclass.org/2020/05/14/checking-for-integers-c-code/
-        if (*d >= 1 && *d <= 31) {
+        if (scanf("%d", y) != 1) {
+            printf("\nInvalid input, try again: ");
+            while(getchar() != '\n');
+            continue;
+        }
+        break;
+    }
+    // Check if the birth year is a leap year
+    bool leap = isLeapYear(y);
+
+    // Get user's birth MONTH
+    printf("\nInput your birth month (0-31): ");
+    while (1) {
+        if (scanf("%d", m) != 1) {
+            printf("\nInvalid input, try again: ");
+            while(getchar() != '\n');
+            continue;
+        }
+        if (*m >= 1 && *m <= 12) {
             break;
-            }
+        }
     }
 
-    printf("\nInput your birth month (1-12): ");
-    while (*m < 0 || *m > 12) {
-        scanf("%d", m);
+    // Get user's birth DAY, but take into account the different number of days in different months!
+    // Verify how many days are in the given month
+    int monthLen = monthLength(m, &leap);
+    printf("\nInput your birth day (0-31): ");
+    while (1) {
+        if (scanf("%d", m) != 1) {
+            printf("\nInvalid input, try again: ");
+            while(getchar() != '\n');
+            continue;
         }
-    printf("\nInput your birth year: ");
-    scanf("%d", y);
+        if (*m >= 1 && *m <= monthLen) {
+            break;
+        }
+        else if (*m > monthLen) {
+            printf("\nYour birth month does not have that many days, try again:");
+            continue;
+        }
+    }
+}
+
+int monthLength(int *m, bool *isLeap) {
+    int longer[7] = {1, 3, 5, 7, 8, 10, 12};
+    int shorter[4] = {4, 6, 9, 11};
+
+    for(int i = 0; i < 7 / sizeof(longer); i++) {
+        if (*m == i) {
+        return 31;
+        }
+    }
+
+    for(int i = 0; i < 4 / sizeof(longer); i++) {
+        if (*m == i) {
+        return 30;
+        }
+    }
+
+    if (*m == 2) {
+        if (*isLeap) {
+            return 29;
+        }
+        else {
+            return 28;
+        }
+    }
 }
