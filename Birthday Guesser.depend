@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1728408149 source:/home/user/Desktop/Birthday Guesser/main.c
+1728420505 source:/home/user/Desktop/Birthday Guesser/main.c
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
+	<math.h>
 
