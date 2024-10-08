@@ -222,14 +222,3 @@ int getAnchorDay(int y) {
 
     return anchorDay;
 }
-
-
-
-
-
-
-
-
-
-
-
