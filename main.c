@@ -121,8 +121,8 @@ void getBirthday(int *d, int *m, int *y, bool *isLeap)  {
 int monthLength(int m, bool isLeap) {
     const int intLong = 7;
     const int intShort = 4;
-    int longer[] = {1, 3, 5, 7, 8, 10, 12};
-    int shorter[] = {4, 6, 9, 11};
+    const int longer[] = {1, 3, 5, 7, 8, 10, 12};
+    const int shorter[] = {4, 6, 9, 11};
 
     for(int i = 0; i < intLong; i++) {
         if (m == longer[i]) {
@@ -199,7 +199,7 @@ int getAnchorDay(int y) {
     // https://en.wikipedia.org/wiki/Doomsday_rule#Finding_a_year's_anchor_day
 
     // Make an array of doomsday based on century
-    int centuryAnchorDay[4] = {2, 0, 5, 3};
+    const int centuryAnchorDay[4] = {2, 0, 5, 3};
     int century, anchorDay;
 
     // First, we need to lower the year to the range of 0-400
