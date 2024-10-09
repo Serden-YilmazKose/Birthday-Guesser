@@ -25,8 +25,7 @@ int getGematria(const char *gemName);
 const char* getZodiacSign(int *d, int *m);
 
 
-int main()
-{
+int main() {
     // create necessary integers
     int day, month, year, gematria;
     bool isLeap;
@@ -38,6 +37,7 @@ int main()
 
     // Day of week
     const char* dayOfWeek = weekday(day, month, year, isLeap);
+    const char* dayOfWeekCentury = weekday(day, month, year + 100, isLeap);
     printf("\nYou were born on a %s!", dayOfWeek);
 
     // Get the user's name
@@ -51,6 +51,9 @@ int main()
     // Get Zodiac sign
     const char* zodiac = getZodiacSign(&day, &month);
     printf("\nYour Zodiac sign is: %s", zodiac);
+
+    printf("\n\nYour birthday is %d.%d.%d, you were born on a %s, you turn 100 on a %s.", day, month, year, dayOfWeek, dayOfWeekCentury);
+    printf("\nYour name is %s, and the gematria value of your name is %d. Also, you are a %s.", name, gematria, zodiac);
     return 0;
 }
 
