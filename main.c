@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
+#include <ctype.h>
+#include <string.h>
 
 // Prototype of birthday input function
 void getBirthday(int *d, int *m, int *y, bool *isLeap);
@@ -18,7 +20,7 @@ int getAnchorDay(int y);
 // Ask and get user's name
 void getName(char *getname);
 // Get gematrial value of given name
-int getGematria(char *gemName);
+int getGematria(const char *gemName);
 
 
 int main()
@@ -26,7 +28,7 @@ int main()
     // create necessary integers
     int day, month, year;
     bool isLeap;
-    char name[64];
+    char name[256];
 
     // time for the input
     getBirthday(&day, &month, &year, &isLeap);
@@ -41,21 +43,37 @@ int main()
     printf("Your name is: %s", name);
 
     // Now find the gematria value of the name
-    printf("The gematria value of your name is: %d", getGematria(name));
+    printf("\nThe gematria value of your name is: %d", getGematria(name));
 
     return 0;
 }
 
-int getGematria(char *gemName){
-    // Run for loop for each character of the name (but exclude non letters)
+int getGematria(const char *gemName){
+    // Were going to need a dictionary of each letter in the English alphabet
+
+    // Run while loop for each character of the name, and add the value to the gematria integer (but exclude non letters)
     int gematria = 0;
+    while (*gemName){
+        // Get character at the specific pointer and make it uppercase
+        char letter = toupper(*gemName);
+        // If it is a letter, add the value of the letter to gematria
+        if (letter >= 'A' && letter <= 'Z'){
+            gematria += letter - 'A' + 1;
+        }
+        *gemName++;
+    }
     return gematria;
 }
 
 void getName(char *getname){
     // Ask for user's name
-    printf("Enter your name: ");
-    scanf("%s", getname);
+    printf("\nEnter your name: ");
+    fgets(getname, 256, stdin);
+    size_t nameLen = strlen(getname);
+    // Remove newline
+    if (nameLen > 0 && getname[nameLen - 1] =='\n') {
+        getname[nameLen - 1] = '\0';
+    }
 }
 
 // Find the day of week you were born on, using the following algorithm
@@ -127,6 +145,7 @@ void getBirthday(int *d, int *m, int *y, bool *isLeap)  {
             continue;
         }
     }
+    getchar();
 }
 
 bool isLeapYear(int y) {
