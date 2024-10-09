@@ -17,6 +17,8 @@ void getDoomsDay(int m, bool isLeap, int *doom);
 int getAnchorDay(int y);
 // Ask and get user's name
 void getName(char *getname);
+// Get gematrial value of given name
+int getGematria(char *gemName);
 
 
 int main()
@@ -38,9 +40,16 @@ int main()
     getName(name);
     printf("Your name is: %s", name);
 
-
+    // Now find the gematria value of the name
+    printf("The gematria value of your name is: %d", getGematria(name));
 
     return 0;
+}
+
+int getGematria(char *gemName){
+    // Run for loop for each character of the name (but exclude non letters)
+    int gematria = 0;
+    return gematria;
 }
 
 void getName(char *getname){
