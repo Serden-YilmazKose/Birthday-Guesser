@@ -35,8 +35,9 @@ int main()
     printf("\nYou were born on a %s!", dayOfWeek);
 
     // Get the user's name
-    getName(&name);
+    getName(name);
     printf("Your name is: %s", name);
+
 
 
     return 0;
@@ -45,7 +46,7 @@ int main()
 void getName(char *getname){
     // Ask for user's name
     printf("Enter your name: ");
-    scanf("%s", *getname);
+    scanf("%s", getname);
 }
 
 // Find the day of week you were born on, using the following algorithm
