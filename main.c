@@ -39,7 +39,6 @@ int main()
     return 0;
 }
 
-
 // Find the day of week you were born on, using the following algorithm
 // https://en.wikipedia.org/wiki/Determination_of_the_day_of_the_week
 const char* weekday(int d, int m, int y, bool isLeap) {
@@ -57,13 +56,6 @@ const char* weekday(int d, int m, int y, bool isLeap) {
     int indexDoomsDay = (anchorDay + (d - doomsDay) + 7) %7;
     return weekdays[indexDoomsDay];
     }
-
-bool isLeapYear(int y) {
-    if ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0)) {
-    return true;
-    }
-    return false;
-}
 
 void getBirthday(int *d, int *m, int *y, bool *isLeap)  {
     // Ask user for birth day, month and year
@@ -116,6 +108,13 @@ void getBirthday(int *d, int *m, int *y, bool *isLeap)  {
             continue;
         }
     }
+}
+
+bool isLeapYear(int y) {
+    if ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0)) {
+    return true;
+    }
+    return false;
 }
 
 int monthLength(int m, bool isLeap) {
