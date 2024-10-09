@@ -15,17 +15,16 @@ const char* weekday(int d, int m, int y, bool isLeap);
 void getDoomsDay(int m, bool isLeap, int *doom);
 // Find the doomsday based on the year
 int getAnchorDay(int y);
+// Ask and get user's name
+void getName(char *getname);
 
 
 int main()
 {
-    // Ask user for birth day, month and year
-    // https://www.w3schools.com/c/c_user_input.php
-
     // create necessary integers
-
     int day, month, year;
     bool isLeap;
+    char name[64];
 
     // time for the input
     getBirthday(&day, &month, &year, &isLeap);
@@ -35,8 +34,18 @@ int main()
     const char* dayOfWeek = weekday(day, month, year, isLeap);
     printf("\nYou were born on a %s!", dayOfWeek);
 
+    // Get the user's name
+    getName(&name);
+    printf("Your name is: %s", name);
+
 
     return 0;
+}
+
+void getName(char *getname){
+    // Ask for user's name
+    printf("Enter your name: ");
+    scanf("%s", *getname);
 }
 
 // Find the day of week you were born on, using the following algorithm
@@ -104,7 +113,7 @@ void getBirthday(int *d, int *m, int *y, bool *isLeap)  {
             break;
         }
         else {
-            printf("\nYour birth month does not have that many days, try again:");
+            printf("\nYour birth month does not have that many days, try again: ");
             continue;
         }
     }
