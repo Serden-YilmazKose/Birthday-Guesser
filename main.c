@@ -48,7 +48,7 @@ int main() {
     gematria = getGematria(name);
     printf("\nThe gematria value of your name is: %d", gematria);
 
-    // Get Zodiac sign
+    // Get Zodiac sign using our function
     const char* zodiac = getZodiacSign(&day, &month);
     printf("\nYour Zodiac sign is: %s", zodiac);
 
