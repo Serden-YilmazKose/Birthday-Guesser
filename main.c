@@ -53,7 +53,7 @@ int main() {
     printf("\nYour Zodiac sign is: %s", zodiac);
 
     printf("\n\nYour birthday is %d.%d.%d, you were born on a %s, you turn 100 on a %s.", day, month, year, dayOfWeek, dayOfWeekCentury);
-    printf("\nYour name is %s, and the gematria value of your name is %d. Also, you are a %s.", name, gematria, zodiac);
+    printf("\nYour name is %s, and the gematria value of your name is %d. Also, you are a %s.\n", name, gematria, zodiac);
     return 0;
 }
 
