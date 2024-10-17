@@ -24,7 +24,9 @@ int getGematria(const char *gemName);
 // Get zodiac sign, by ChatGPT
 const char* getZodiacSign(int *d, int *m);
 // Find how long it has been since the birthday
-int howLong(int *d, int *m, int *y, bool *isLeap);
+int howOld(int *d, int *m, int *y, bool *isLeap);
+// Find the distance between given date and birthday
+int howLongAgo();
 
 int main() {
     // create necessary integers
@@ -60,11 +62,11 @@ int main() {
     // Find how long it has been since the user's birthday
     int today, tomonth, toyear;
     bool isToLeap;
-    int length = howLong(&today, &tomonth, &toyear, &isToLeap);
+    int age = howOld(&today, &tomonth, &toyear, &isToLeap);
     return 0;
 }
 
-int howLong(int *d, int *m, int *y, bool *isLeap) {
+int howOld(int *d, int *m, int *y, bool *isLeap) {
     // Ask for the current date
     printf("Input current year: ");
     while (1) {
@@ -110,9 +112,25 @@ int howLong(int *d, int *m, int *y, bool *isLeap) {
     }
     getchar(); 
     printf("Your birthday is %d.%d.%d!\n", *d, *m, *y);
-    printf("We shall now see how old you are!\n"); 
+    printf("We shall now see how old you are!\n");
+    int age = howLongAgo(d, m, y); 
     return 0;
 
+}
+
+int howLongAgo() {
+    // Find distance between given date and birth date
+    // If the current month is greater than the birth month, we can subtract current year for birth year
+    // to get the age in years (ignoring months and days). This is the easiest route
+    int years = 0;
+    if (tomonth > month){
+	printf("yes");
+    }
+    else {
+	printf("no");
+    }
+    
+    return 0;
 }
 
 const char* getZodiacSign(int *day, int *month) {
