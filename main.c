@@ -110,7 +110,7 @@ int howLong(int *d, int *m, int *y, bool *isLeap) {
     }
     getchar(); 
     printf("Your birthday is %d.%d.%d!\n", *d, *m, *y);
-    
+    printf("We shall now see how old you are!\n"); 
     return 0;
 
 }
