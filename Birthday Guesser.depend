@@ -1,9 +1,0 @@
-# depslib dependency file v1.0
-1728502752 source:/home/user/Desktop/Birthday Guesser/main.c
-	<stdio.h>
-	<stdlib.h>
-	<stdbool.h>
-	<math.h>
-	<ctype.h>
-	<string.h>
-
