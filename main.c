@@ -54,6 +54,11 @@ int main() {
 
     printf("\n\nYour birthday is %d.%d.%d, you were born on a %s, you turn 100 on a %s.", day, month, year, dayOfWeek, dayOfWeekCentury);
     printf("\nYour name is %s, and the gematria value of your name is %d. Also, you are a %s.\n", name, gematria, zodiac);
+
+    while (1) {
+	printf("True");
+    }	
+
     return 0;
 }
 
