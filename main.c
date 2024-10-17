@@ -23,7 +23,8 @@ void getName(char *getname);
 int getGematria(const char *gemName);
 // Get zodiac sign, by ChatGPT
 const char* getZodiacSign(int *d, int *m);
-
+// Find how long it has been since the birthday
+int howLong(int *d, int *m, int *y, bool *isLeap);
 
 int main() {
     // create necessary integers
@@ -54,12 +55,64 @@ int main() {
 
     printf("\n\nYour birthday is %d.%d.%d, you were born on a %s, you turn 100 on a %s.", day, month, year, dayOfWeek, dayOfWeekCentury);
     printf("\nYour name is %s, and the gematria value of your name is %d. Also, you are a %s.\n", name, gematria, zodiac);
-
-    while (1) {
-	printf("True");
-    }	
-
+    
+    // What more could I add?
+    // Find how long it has been since the user's birthday
+    int today, tomonth, toyear;
+    bool isToLeap;
+    int length = howLong(&today, &tomonth, &toyear, &isToLeap);
     return 0;
+}
+
+int howLong(int *d, int *m, int *y, bool *isLeap) {
+    // Ask for the current date
+    printf("Input current year: ");
+    while (1) {
+        if (scanf("%d", y) != 1) {
+            printf("\nInvalid input, try again: ");
+            while(getchar() != '\n');
+            continue;
+        }
+        break;
+    }
+    *isLeap = isLeapYear(*y);
+
+    printf("\nInput the current month(1-12): ");
+    while (1) {
+        if (scanf("%d", m) != 1) {
+            printf("\nInvalid input, try again: ");
+            while(getchar() != '\n');
+            continue;
+        }
+        if (*m >= 1 && *m <= 12) {
+            break;
+        }
+        else {
+            printf("\nInvalid month, there are only 12 months in the year, try again: ");
+        }
+    }
+
+    int monthLen = monthLength(*m, isLeap);
+    printf("\nInput current day(1-%d): ", monthLen);
+    while (1) {
+        if (scanf("%d", d) != 1) {
+            printf("\nInvalid input, try again: ");
+            while(getchar() != '\n');
+            continue;
+        }
+        if (*d >= 1 && *d <= monthLen) {
+            break;
+        }
+        else {
+            printf("\nThe current month  does not have that many days, try again: ");
+            continue;
+        }
+    }
+    getchar(); 
+    printf("Your birthday is %d.%d.%d!\n", *d, *m, *y);
+    
+    return 0;
+
 }
 
 const char* getZodiacSign(int *day, int *month) {
