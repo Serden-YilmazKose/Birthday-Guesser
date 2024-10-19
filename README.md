@@ -18,7 +18,7 @@ cd Birthday-Guess/
 3. Compile the main.c project:
 ```bash
 gcc -o main main.c
-'''
+```
 
 4. Execute the program:
 ```bash
