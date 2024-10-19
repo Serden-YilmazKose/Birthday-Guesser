@@ -5,6 +5,17 @@
 #include <ctype.h>
 #include <string.h>
 
+struct Date{
+    int day;
+    int month;
+    int year;
+};
+
+struct Person{
+    struct Date birthday;
+    char name[256];
+};
+
 // Prototype of birthday input function
 void getBirthday(int *d, int *m, int *y, bool *isLeap);
 // Check if the year is a leap year
@@ -23,10 +34,10 @@ void getName(char *getname);
 int getGematria(const char *gemName);
 // Get zodiac sign, by ChatGPT
 const char* getZodiacSign(int *d, int *m);
-// Find how long it has been since the birthday
-int howOld(int *d, int *m, int *y, bool *isLeap);
+// Get today's date
+void getToday(struct Date *date);
 // Find the distance between given date and birthday
-int howLongAgo();
+int howLongAgo(const struct Date *date, struct Person *person);
 
 int main() {
     // create necessary integers
@@ -57,16 +68,38 @@ int main() {
 
     printf("\n\nYour birthday is %d.%d.%d, you were born on a %s, you turn 100 on a %s.", day, month, year, dayOfWeek, dayOfWeekCentury);
     printf("\nYour name is %s, and the gematria value of your name is %d. Also, you are a %s.\n", name, gematria, zodiac);
-    
+
     // What more could I add?
     // Find how long it has been since the user's birthday
     int today, tomonth, toyear;
+    struct Date todayDate = {0, 0, 0};
+    struct Date userBirthday = {day, month, year};
+    struct Person userPerson = {userBirthday, ""};
+    strcpy(userPerson.name, name);
     bool isToLeap;
-    int age = howOld(&today, &tomonth, &toyear, &isToLeap);
+    getToday(&todayDate);
+
+    printf("We shall now see how old you are!\n");
+    int age = howLongAgo(&todayDate, &userPerson);
     return 0;
 }
 
-int howOld(int *d, int *m, int *y, bool *isLeap) {
+int howLongAgo(const struct Date *date, struct Person *person) {
+    // Find distance between given date and birth date
+    // If the current month is greater than the birth month, we can subtract current year for birth year
+    // to get the age in years (ignoring months and days). This is the easiest route
+    int years = 0;
+    if (date->month > person->birthday.month){
+	printf("yes");
+    }
+    else {
+	printf("no");
+    }
+
+    return 0;
+}
+
+void getToday(struct Date *date) {
     // Ask for the current date
     printf("Input current year: ");
     while (1) {
@@ -110,27 +143,8 @@ int howOld(int *d, int *m, int *y, bool *isLeap) {
             continue;
         }
     }
-    getchar(); 
-    printf("Your birthday is %d.%d.%d!\n", *d, *m, *y);
-    printf("We shall now see how old you are!\n");
-    int age = howLongAgo(d, m, y); 
-    return 0;
-
-}
-
-int howLongAgo() {
-    // Find distance between given date and birth date
-    // If the current month is greater than the birth month, we can subtract current year for birth year
-    // to get the age in years (ignoring months and days). This is the easiest route
-    int years = 0;
-    if (tomonth > month){
-	printf("yes");
-    }
-    else {
-	printf("no");
-    }
-    
-    return 0;
+    getchar();
+    printf("Today's date is %d.%d.%d!\n", *d, *m, *y);
 }
 
 const char* getZodiacSign(int *day, int *month) {
