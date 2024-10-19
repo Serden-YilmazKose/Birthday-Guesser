@@ -89,14 +89,50 @@ void howLongAgo(const struct Date *date, struct Person *person) {
     // Find distance between given date and birth date
     // If the current month is greater than the birth month, we can subtract current year for birth year
     // to get the age in years (ignoring months and days). This is the easiest route
-    int years = 0;
-    if (date->month > person->birthday.month){
-        person->age = date->year - person->birthday.year;
+    bool isValid = false;
+    bool isYear = false;
+
+    if (date->year == person->birthday.year) {
+        isYear = true;
+    }
+    if (isYear) {
+        if (date->month == person->birthday.month) {
+            if (date->day >= person->birthday.day) {
+                isValid = true;
+            }
+            else {
+                isValid = false;
+            }
+        }
+        else if (date->month > person->birthday.month) {
+            isValid = false;
+        }
+        else {
+            isValid = true;
+        }
+    }
+    if (date->year < person->birthday.year) {
+        isValid = false;
     }
     else {
-	person->age = date->year - person->birthday.year - 1;
+        isValid = true;
     }
-    printf("Your age is: %d\n", person->age);
+
+    if (isValid) {
+        if (date->month > person->birthday.month){
+            person->age = date->year - person->birthday.year;
+        }
+        else if (date->month == person->birthday.month && date->day >= person->birthday.day){
+            person->age = date->year - person->birthday.year;
+        }
+        else if ((date->month == person->birthday.month && date->day < person->birthday.day) || (date->month < person->birthday.month)) {
+            person->age = date->year - person->birthday.year - 1;
+        }
+        printf("Your age is: %d\n", person->age);
+    }
+    else {
+        printf("Invalid date\n");
+    }
 }
 
 void getToday(struct Date *date) {
