@@ -25,4 +25,4 @@ gcc -o main main.c
 ./main
 ```
 
-Code was written by [Serden-Yilmaz Kose](https://github.com/Serden-YilmazKose)
+Code was written by [Serden-Yilmaz Kose](https://github.com/Serden-YilmazKose).
