@@ -14,6 +14,7 @@ struct Date{
 struct Person{
     struct Date birthday;
     char name[256];
+    int age;
 };
 
 // Prototype of birthday input function
@@ -37,7 +38,7 @@ const char* getZodiacSign(int *d, int *m);
 // Get today's date
 void getToday(struct Date *date);
 // Find the distance between given date and birthday
-int howLongAgo(const struct Date *date, struct Person *person);
+void howLongAgo(const struct Date *date, struct Person *person);
 
 int main() {
     // create necessary integers
@@ -74,52 +75,51 @@ int main() {
     int today, tomonth, toyear;
     struct Date todayDate = {0, 0, 0};
     struct Date userBirthday = {day, month, year};
-    struct Person userPerson = {userBirthday, ""};
+    struct Person userPerson = {userBirthday, "", 0};
     strcpy(userPerson.name, name);
     bool isToLeap;
     getToday(&todayDate);
 
     printf("We shall now see how old you are!\n");
-    int age = howLongAgo(&todayDate, &userPerson);
+    howLongAgo(&todayDate, &userPerson);
     return 0;
 }
 
-int howLongAgo(const struct Date *date, struct Person *person) {
+void howLongAgo(const struct Date *date, struct Person *person) {
     // Find distance between given date and birth date
     // If the current month is greater than the birth month, we can subtract current year for birth year
     // to get the age in years (ignoring months and days). This is the easiest route
     int years = 0;
     if (date->month > person->birthday.month){
-	printf("yes");
+        person->age = date->year - person->birthday.year;
     }
     else {
-	printf("no");
+	person->age = date->year - person->birthday.year - 1;
     }
-
-    return 0;
+    printf("Your age is: %d\n", person->age);
 }
 
 void getToday(struct Date *date) {
     // Ask for the current date
     printf("Input current year: ");
     while (1) {
-        if (scanf("%d", y) != 1) {
+        if (scanf("%d", &date->year) != 1) {
             printf("\nInvalid input, try again: ");
             while(getchar() != '\n');
             continue;
         }
         break;
     }
-    *isLeap = isLeapYear(*y);
+    bool isLeap = isLeapYear(date->year);
 
     printf("\nInput the current month(1-12): ");
     while (1) {
-        if (scanf("%d", m) != 1) {
+        if (scanf("%d", &date->month) != 1) {
             printf("\nInvalid input, try again: ");
             while(getchar() != '\n');
             continue;
         }
-        if (*m >= 1 && *m <= 12) {
+        if (date->month >= 1 && date->month <= 12) {
             break;
         }
         else {
@@ -127,15 +127,15 @@ void getToday(struct Date *date) {
         }
     }
 
-    int monthLen = monthLength(*m, isLeap);
+    int monthLen = monthLength(date->month, isLeap);
     printf("\nInput current day(1-%d): ", monthLen);
     while (1) {
-        if (scanf("%d", d) != 1) {
+        if (scanf("%d", &date->day) != 1) {
             printf("\nInvalid input, try again: ");
             while(getchar() != '\n');
             continue;
         }
-        if (*d >= 1 && *d <= monthLen) {
+        if (date->day >= 1 && date->day <= monthLen) {
             break;
         }
         else {
@@ -144,7 +144,7 @@ void getToday(struct Date *date) {
         }
     }
     getchar();
-    printf("Today's date is %d.%d.%d!\n", *d, *m, *y);
+    printf("Today's date is %d.%d.%d!\n", date->day, date->month, date->year);
 }
 
 const char* getZodiacSign(int *day, int *month) {
