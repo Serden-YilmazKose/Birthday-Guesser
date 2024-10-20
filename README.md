@@ -2,7 +2,7 @@
 This C program will tell you fun facts regarding your date of birth, name, etc...!
 ## TABLE of Contents
 - [Installation](#installation)
-- [About the author](#About the author)
+- [About the author](#About-the-author)
 
 ## Installation
 1. Clone the repository:
