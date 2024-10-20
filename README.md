@@ -2,6 +2,7 @@
 This C program will tell you fun facts regarding your date of birth, name, etc...!
 ## TABLE of Contents
 - [Installation](#installation)
+- [Compile](#Compile)
 - [About the author](#About-the-author)
 
 ## Installation
@@ -14,13 +15,13 @@ git clone https://github.com/Serden-YilmazKose/Birthday-Guesser.git
 ```bash
 cd Birthday-Guess/
 ```
-
-3. Compile the main.c project:
+## Compile
+1. Compile the main.c project:
 ```bash
-gcc -o main main.c
+gcc main.c getUserAge.c getUserBirthday.c  doomsday.c userName.c -o main
 ```
 
-4. Execute the program:
+2. Execute the program:
 ```bash
 ./main
 ```
