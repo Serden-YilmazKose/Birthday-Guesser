@@ -5,6 +5,18 @@
 #include <ctype.h>
 #include <string.h>
 
+struct Date{
+    int day;
+    int month;
+    int year;
+};
+
+struct Person{
+    struct Date birthday;
+    char name[256];
+    int age;
+};
+
 // Prototype of birthday input function
 void getBirthday(int *d, int *m, int *y, bool *isLeap);
 // Check if the year is a leap year
@@ -23,8 +35,10 @@ void getName(char *getname);
 int getGematria(const char *gemName);
 // Get zodiac sign, by ChatGPT
 const char* getZodiacSign(int *d, int *m);
-// Find how long it has been since the birthday
-int howLong(int *d, int *m, int *y, bool *isLeap);
+// Get today's date
+void getToday(struct Date *date);
+// Find the distance between given date and birthday
+void howLongAgo(const struct Date *date, struct Person *person);
 
 int main() {
     // create necessary integers
@@ -55,36 +69,93 @@ int main() {
 
     printf("\n\nYour birthday is %d.%d.%d, you were born on a %s, you turn 100 on a %s.", day, month, year, dayOfWeek, dayOfWeekCentury);
     printf("\nYour name is %s, and the gematria value of your name is %d. Also, you are a %s.\n", name, gematria, zodiac);
-    
+
     // What more could I add?
     // Find how long it has been since the user's birthday
     int today, tomonth, toyear;
+    struct Date todayDate = {0, 0, 0};
+    struct Date userBirthday = {day, month, year};
+    struct Person userPerson = {userBirthday, "", 0};
+    strcpy(userPerson.name, name);
     bool isToLeap;
-    int length = howLong(&today, &tomonth, &toyear, &isToLeap);
+    getToday(&todayDate);
+
+    printf("We shall now see how old you are!\n");
+    howLongAgo(&todayDate, &userPerson);
     return 0;
 }
 
-int howLong(int *d, int *m, int *y, bool *isLeap) {
+void howLongAgo(const struct Date *date, struct Person *person) {
+    // Find distance between given date and birth date
+    // If the current month is greater than the birth month, we can subtract current year for birth year
+    // to get the age in years (ignoring months and days). This is the easiest route
+    bool isValid = false;
+    bool isYear = false;
+
+    if (date->year == person->birthday.year) {
+        isYear = true;
+    }
+    if (isYear) {
+        if (date->month == person->birthday.month) {
+            if (date->day >= person->birthday.day) {
+                isValid = true;
+            }
+            else {
+                isValid = false;
+            }
+        }
+        else if (date->month > person->birthday.month) {
+            isValid = false;
+        }
+        else {
+            isValid = true;
+        }
+    }
+    if (date->year < person->birthday.year) {
+        isValid = false;
+    }
+    else {
+        isValid = true;
+    }
+
+    if (isValid) {
+        if (date->month > person->birthday.month){
+            person->age = date->year - person->birthday.year;
+        }
+        else if (date->month == person->birthday.month && date->day >= person->birthday.day){
+            person->age = date->year - person->birthday.year;
+        }
+        else if ((date->month == person->birthday.month && date->day < person->birthday.day) || (date->month < person->birthday.month)) {
+            person->age = date->year - person->birthday.year - 1;
+        }
+        printf("Your age is: %d\n", person->age);
+    }
+    else {
+        printf("Invalid date\n");
+    }
+}
+
+void getToday(struct Date *date) {
     // Ask for the current date
     printf("Input current year: ");
     while (1) {
-        if (scanf("%d", y) != 1) {
+        if (scanf("%d", &date->year) != 1) {
             printf("\nInvalid input, try again: ");
             while(getchar() != '\n');
             continue;
         }
         break;
     }
-    *isLeap = isLeapYear(*y);
+    bool isLeap = isLeapYear(date->year);
 
     printf("\nInput the current month(1-12): ");
     while (1) {
-        if (scanf("%d", m) != 1) {
+        if (scanf("%d", &date->month) != 1) {
             printf("\nInvalid input, try again: ");
             while(getchar() != '\n');
             continue;
         }
-        if (*m >= 1 && *m <= 12) {
+        if (date->month >= 1 && date->month <= 12) {
             break;
         }
         else {
@@ -92,15 +163,15 @@ int howLong(int *d, int *m, int *y, bool *isLeap) {
         }
     }
 
-    int monthLen = monthLength(*m, isLeap);
+    int monthLen = monthLength(date->month, isLeap);
     printf("\nInput current day(1-%d): ", monthLen);
     while (1) {
-        if (scanf("%d", d) != 1) {
+        if (scanf("%d", &date->day) != 1) {
             printf("\nInvalid input, try again: ");
             while(getchar() != '\n');
             continue;
         }
-        if (*d >= 1 && *d <= monthLen) {
+        if (date->day >= 1 && date->day <= monthLen) {
             break;
         }
         else {
@@ -108,11 +179,8 @@ int howLong(int *d, int *m, int *y, bool *isLeap) {
             continue;
         }
     }
-    getchar(); 
-    printf("Your birthday is %d.%d.%d!\n", *d, *m, *y);
-    printf("We shall now see how old you are!\n");   
-    return 0;
-
+    getchar();
+    printf("Today's date is %d.%d.%d!\n", date->day, date->month, date->year);
 }
 
 const char* getZodiacSign(int *day, int *month) {
