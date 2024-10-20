@@ -4,7 +4,7 @@
 #include <math.h>
 #include <ctype.h>
 #include <string.h>
-
+#include "printer.c"
 struct Date{
     int day;
     int month;
@@ -82,6 +82,7 @@ int main() {
 
     printf("We shall now see how old you are!\n");
     howLongAgo(&todayDate, &userPerson);
+    printer(5);
     return 0;
 }
 
