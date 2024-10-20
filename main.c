@@ -59,8 +59,9 @@ int main() {
     struct Date userBirthday = {day, month, year};
     struct Person userPerson = {userBirthday, "", 0};
     strcpy(userPerson.name, name);
+
     getToday(&todayDate);
     printf("We shall now see how old you are!\n");
-    howLongAgo(&todayDate, &userPerson);
+    getAge(&todayDate, &userPerson);
     return 0;
 }

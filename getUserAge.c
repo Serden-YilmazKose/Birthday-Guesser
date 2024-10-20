@@ -17,11 +17,11 @@ struct Person{
 // Get today's date
 void getToday(struct Date *date);
 // Find the distance between given date and birthday
-void howLongAgo(const struct Date *date, struct Person *person);
+void getAge(const struct Date *date, struct Person *person);
 
-void howLongAgo(const struct Date *date, struct Person *person) {
+void getAge(const struct Date *date, struct Person *person) {
     // Find distance between given date and birth date
-    // If the current month is greater than the birth month, we can subtract current year for birth year
+    // If the current mo nth is greater than the birth month, we can subtract current year for birth year
     // to get the age in years (ignoring months and days). This is the easiest route
     bool isValid = false;
     bool isYear = false;
@@ -66,6 +66,11 @@ void howLongAgo(const struct Date *date, struct Person *person) {
     }
     else {
         printf("Invalid date\n");
+    }
+
+    // Check if the user's birthday is, today!
+    if (date->month == person->birthday.month && date->day == person->birthday.day) {
+        printf("Happy birthday %s, you are %d years old!\n", person->name, person->age);
     }
 }
 
