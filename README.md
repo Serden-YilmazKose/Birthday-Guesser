@@ -1,8 +1,8 @@
 # Birthday-Guesser
-    This C program will tell you fun facts regarding your date of birth, name, etc...!
+This C program will tell you fun facts regarding your date of birth, name, etc...!
 ## TABLE of Contents
 - [Installation](#installation)
-
+- [About the author](#About the author)
 
 ## Installation
 1. Clone the repository:
@@ -25,4 +25,5 @@ gcc -o main main.c
 ./main
 ```
 
+## About the author
 Code was written by [Serden-Yilmaz Kose](https://github.com/Serden-YilmazKose).
