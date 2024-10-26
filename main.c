@@ -19,7 +19,9 @@ struct Date{
 struct Person{
     struct Date birthday;
     char name[256];
-    int age;
+    int ageYear;
+    int ageMonth;
+    int ageDay;
 };
 
 int main() {
@@ -57,10 +59,10 @@ int main() {
     //int today, tomonth, toyear;
     struct Date todayDate = {0, 0, 0};
     struct Date userBirthday = {day, month, year};
-    struct Person userPerson = {userBirthday, "", 0};
+    struct Person userPerson = {userBirthday, "", 0, 0, 0};
     strcpy(userPerson.name, name);
 
-    getToday(&todayDate);
+    // getToday(&todayDate);
     printf("We shall now see how old you are!\n");
     getAge(&todayDate, &userPerson);
     return 0;
