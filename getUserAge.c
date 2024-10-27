@@ -144,7 +144,7 @@ void getAge(const struct Date *date, struct Person *person) {
                 }
             }
             // Clear input new line
-            while(getchar() != "\n");
+            //while(getchar() != "\n");
         }
     }
 
