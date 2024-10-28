@@ -65,5 +65,6 @@ int main() {
     // getToday(&todayDate);
     printf("We shall now see how old you are!\n");
     getAge(&todayDate, &userPerson);
+
     return 0;
 }
